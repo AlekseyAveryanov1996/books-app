@@ -1,14 +1,32 @@
 <script setup lang="ts">
-function test(value: string) {
-  console.log(value)
+import PocketBase from 'pocketbase'
+const pb = new PocketBase('http://127.0.0.1:8090')
+
+const test = async () => {
+  const posts = await pb.collection('posts').getFullList()
+  console.log(posts)
 }
 
-test('test')
+const createPost = async () => {
+  const record = await pb.collection('posts').create({
+    title: 'hello2',
+    content: 'my second posts',
+  })
+}
+
+test()
 </script>
 
 <template>
   <h1>You did it!</h1>
-  <p>
+  <p
+    @click="
+      () => {
+        createPost()
+        test()
+      }
+    "
+  >
     Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
     documentation
   </p>
