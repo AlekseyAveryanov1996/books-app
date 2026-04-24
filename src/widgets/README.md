@@ -1,0 +1,1 @@
+# крупные блоки (header, sidebar)

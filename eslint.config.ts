@@ -3,6 +3,7 @@ import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescri
 import pluginVue from 'eslint-plugin-vue'
 import pluginOxlint from 'eslint-plugin-oxlint'
 import skipFormatting from 'eslint-config-prettier/flat'
+import fsdPlugin from 'eslint-plugin-fsd-lint'
 
 // To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
 // import { configureVueProject } from '@vue/eslint-config-typescript'
@@ -21,6 +22,20 @@ export default defineConfigWithVueTs(
   vueTsConfigs.recommended,
 
   ...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
+  {
+    plugins: {
+      fsd: fsdPlugin,
+    },
+    rules: {
+      'fsd/forbidden-imports': 'error',
+      'fsd/no-relative-imports': 'error',
+      'fsd/no-public-api-sidestep': 'error',
+      'fsd/no-cross-slice-dependency': 'error',
+      'fsd/no-ui-in-business-logic': 'error',
+      'fsd/no-global-store-imports': 'error',
+      'fsd/ordered-imports': 'warn',
+    },
+  },
 
   skipFormatting,
 )
