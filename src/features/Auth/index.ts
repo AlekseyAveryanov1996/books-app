@@ -1,1 +1,1 @@
-export { default as RegistrForm } from './ui/RegistrForm.vue'
+export { RegistrForm } from './registr/'

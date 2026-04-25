@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useAuth } from '../model/useAuth'
+import { registr } from '../api/registr.api'
 
 const userName = ref('')
 const email = ref('')
 const password = ref('')
 const passwordConfirm = ref('')
 
-const { signUp } = useAuth()
-
 const onSubmit = async () => {
-  const response = await signUp({
+  const response = await registr({
     email: email.value,
     password: password.value,
     username: userName.value,
