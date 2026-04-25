@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { registr } from '../api/registr.api'
+import { logIn } from '../@x/login'
 
 const userName = ref('')
 const email = ref('')
@@ -17,6 +18,15 @@ const onSubmit = async () => {
 
   console.log(response)
 }
+
+const handleLogIn = async () => {
+  try {
+    await logIn({ identity: 'Flex_d1@mail.ru', password: 'gfre295678' })
+    console.log('Пользователь авторизован')
+  } catch (error) {
+    console.log('Ошибка авторизации', error)
+  }
+}
 </script>
 
 <template>
@@ -27,4 +37,6 @@ const onSubmit = async () => {
     <input type="text" name="passwrod" v-model="passwordConfirm" />
     <button type="submit">Зарегистрироваться</button>
   </form>
+
+  <button @click="handleLogIn">Авторизоваться</button>
 </template>
