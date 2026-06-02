@@ -5,7 +5,7 @@ export async function logIn(data: RequestLogIn) {
   try {
     const authData = await pb.collection('users').authWithPassword(data.identity, data.password)
     console.log(authData)
-    console.log(pb.authStore.token)
+    console.log(pb.authStore)
   } catch (error) {
     console.log('Ошибка авторизации', error)
     throw new Error('Ошибка авторизации')
