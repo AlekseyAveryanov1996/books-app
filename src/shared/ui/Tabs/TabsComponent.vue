@@ -1,18 +1,22 @@
 <script setup lang="ts">
 import { computed, type Component } from 'vue'
 
-interface TabBtn {
-  label: string
+interface TabButton {
+  component: Component
+  props?: Record<string, any>
+  value: string
+}
+
+interface TabContent {
+  component: Component
+  props?: Record<string, any>
   value: string
 }
 
 interface TabsProps {
-  tabsButtons: TabBtn[]
+  tabsButtons: TabButton[]
   activeTab: string
-  tabsContent: Array<{
-    component: Component
-    props?: Record<string, any>
-  }>
+  tabsContent: TabContent[]
 }
 
 const props = defineProps<TabsProps>()
@@ -20,26 +24,23 @@ const emit = defineEmits<{
   'update:activeTab': [value: string]
 }>()
 
-const activeIndex = computed(() => {
-  const index = props.tabsButtons.findIndex((tab) => tab.value === props.activeTab)
-  return index >= 0 ? index : 0
+const activeContent = computed(() => {
+  return props.tabsContent.find((tab) => tab.value === props.activeTab)
 })
 
-const activeContent = computed(() => {
-  return props.tabsContent[activeIndex.value]
-})
+console.log(activeContent.value)
 </script>
 
 <template>
   <div class="tabs">
-    <button
+    <component
       v-for="tab in props.tabsButtons"
       :key="tab.value"
+      :is="tab.component"
+      v-bind="tab.props"
       :class="{ tabs__btn: true, '--active': tab.value === props.activeTab }"
       @click="emit('update:activeTab', tab.value)"
-    >
-      {{ tab.label }}
-    </button>
+    />
 
     <div class="tabs__content">
       <component v-if="activeContent" :is="activeContent.component" v-bind="activeContent.props" />
