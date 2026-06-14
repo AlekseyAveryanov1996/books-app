@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { registr } from '../api/registr.api'
 import { logIn } from '../@x/login'
+import { InputComponent } from '@/shared/ui/Input'
 
 const userName = ref('')
 const email = ref('')
@@ -37,6 +38,8 @@ const handleLogIn = async () => {
     <input type="text" name="passwrod" v-model="passwordConfirm" />
     <button type="submit">Зарегистрироваться</button>
   </form>
+
+  <InputComponent />
 
   <button @click="handleLogIn">Авторизоваться</button>
 </template>
