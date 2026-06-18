@@ -4,10 +4,9 @@ import type { RequestLogIn } from '../model/types'
 export async function logIn(data: RequestLogIn) {
   try {
     const authData = await pb.collection('users').authWithPassword(data.identity, data.password)
-    console.log(authData)
-    console.log(pb.authStore)
+    return authData
   } catch (error) {
-    console.log('Ошибка авторизации', error)
-    throw new Error('Ошибка авторизации')
+    console.error('Ошибка авторизации', error)
+    throw error
   }
 }
