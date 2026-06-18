@@ -22,7 +22,6 @@ const handleLogIn = async () => {
 
   try {
     await logIn({ identity: logInInput.value, password: passwordInput.value })
-    console.log('Пользователь авторизован')
   } catch (error) {
     if (error?.status === 400) {
       errorMessage.value = 'Неверный логин или пароль'

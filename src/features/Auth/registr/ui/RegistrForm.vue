@@ -13,6 +13,10 @@ const emailEmpty = ref<boolean>(false)
 const passwordEmpty = ref<boolean>(false)
 const passwordConfirmEmpty = ref<boolean>(false)
 
+const emit = defineEmits<{
+  'update:activeTab': [value: string]
+}>()
+
 const onSubmit = async () => {
   userNameEmpty.value = !userName.value.trim()
   emailEmpty.value = !email.value.trim()
@@ -37,12 +41,16 @@ const onSubmit = async () => {
       passwordConfirm: passwordConfirm.value,
     })
 
+    errorMessage.value = 'Пользователь зарегистрирован'
+    setTimeout(() => {
+      emit('update:activeTab', 'login')
+    }, 1000)
+
     // Нужно прокинуть в таб авторизации
     console.log(response)
   } catch (error: any) {
     if (error?.response?.data) {
       const errorData = error.response.data
-      console.log(errorData)
 
       if (errorData.username) {
         errorMessage.value =
@@ -73,6 +81,8 @@ const onSubmit = async () => {
           return
         }
       }
+    } else {
+      errorMessage.value = 'Что-то пошло не так, попробуйте позже'
     }
   }
 }

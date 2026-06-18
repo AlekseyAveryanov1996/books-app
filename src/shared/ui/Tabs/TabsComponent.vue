@@ -28,7 +28,9 @@ const activeContent = computed(() => {
   return props.tabsContent.find((tab) => tab.value === props.activeTab)
 })
 
-console.log(activeContent.value)
+function handleTabActive(value: string) {
+  emit('update:activeTab', value)
+}
 </script>
 
 <template>
@@ -43,7 +45,12 @@ console.log(activeContent.value)
     />
 
     <div class="tabs__content">
-      <component v-if="activeContent" :is="activeContent.component" v-bind="activeContent.props" />
+      <component
+        v-if="activeContent"
+        :is="activeContent.component"
+        v-bind="activeContent.props"
+        @update:activeTab="handleTabActive"
+      />
     </div>
   </div>
 </template>
