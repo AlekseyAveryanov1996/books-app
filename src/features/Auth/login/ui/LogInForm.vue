@@ -3,12 +3,15 @@ import { logIn } from '../api/login.api'
 import { ButtonComponent } from '@/shared/ui/Button'
 import { InputComponent } from '@/shared/ui/Input'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const logInInput = ref<string>('')
 const passwordInput = ref<string>('')
 const logInEmpty = ref<boolean>(false)
 const passwordEmpty = ref<boolean>(false)
 const errorMessage = ref<string | null>('')
+
+const router = useRouter()
 
 const handleLogIn = async () => {
   // если поля пустые
@@ -22,6 +25,7 @@ const handleLogIn = async () => {
 
   try {
     await logIn({ identity: logInInput.value, password: passwordInput.value })
+    router.push('/dashboard')
   } catch (error) {
     if (error?.status === 400) {
       errorMessage.value = 'Неверный логин или пароль'
