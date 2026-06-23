@@ -4,7 +4,7 @@ import { AuthPage } from '@/pages/authPage'
 import { DashBoard } from '@/pages/dashboard'
 import { useAuth } from '@/features/Auth/shared/model/useAuth'
 
-const useAuthStrok = useAuth()
+const useAuthStore = useAuth()
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,7 +23,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = useAuthStrok.checkAuth()
+  const isAuthenticated = useAuthStore.checkAuth()
 
   console.log(isAuthenticated)
 
